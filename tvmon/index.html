@@ -2,18 +2,29 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAflBMVEUAAAD/////UgDv7+/i4uKpNAD/VwD19fX6+vq2trY1EAA3EQCaMACeMQCSkpK/OwCLKwCtra1qamrMzMyTLgDsSQDMPwDYQwDZ2dn0SwBDQ0NZHAC0OABQGQCKiooaCABEFQAOBQBzJAB4eHgaGhqBKACCgoInJyegoKBPT08E8M/vAAAApElEQVQ4je1QxxbDIAyTTQjQ7NWm6U73//9gQzNP7S2n6OBnZIGQgQWzYiXX0vsx93mDwA2Aq1ZCKB2a0tKhunX3Xd4CkRujMonSiUkzqhqeRPfAbs/Mdxxye3Asm5Kx5djOT5yfZcEcxZdeAEFARugFvhUUsh4FR3qAEkwt6qlF4++E9BxCDp8cBS+ibIwZNDF9V3770mk5pd+TRXh/FrVgDnwAF/QHJcKh5NQAAAAASUVORK5CYII=">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="shortcut icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
 <title>tvmon</title>
-<style>html,body{height:100%;margin:0;background:#111;color:#888;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center}</style>
+<style>html,body{height:100%;margin:0;background:#111;color:#aaa;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}img{width:72px;height:72px;border-radius:16px}a{color:#4ea1ff;text-decoration:none;font-size:14px}</style>
 </head>
 <body>
-이동 중…
+<img src="icon.png" alt="">
+<div id="m">잠시 후 이동합니다…</div>
+<a id="go" href="#">바로 이동</a>
 <script>
 fetch('../urls.json?_=' + Date.now(), { cache: 'no-store' })
   .then(function(r){ return r.json(); })
-  .then(function(d){ if (d.tvmon && d.tvmon.url) location.replace(d.tvmon.url); })
-  .catch(function(){});
+  .then(function(d){
+    var u = d.tvmon && d.tvmon.url;
+    if (!u) { document.getElementById('m').textContent = '주소 미설정'; return; }
+    document.getElementById('go').setAttribute('href', u);
+    var t = setTimeout(function(){ location.replace(u); }, 1500);
+    document.addEventListener('visibilitychange', function(){ if (document.hidden) clearTimeout(t); });
+  })
+  .catch(function(){ document.getElementById('m').textContent = '불러오기 실패'; });
 </script>
 </body>
 </html>

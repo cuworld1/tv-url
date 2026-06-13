@@ -2,18 +2,29 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAANlBMVEUPDw////8AAAAMDAyUlJQODg6EhITe3t7i4uLS0tIbGxvy8vJ2dnbX19fKysrr6+tpaWlubm4sQ29IAAAAX0lEQVQokd3QwQ6AIAiAYYKsKMt6/5ctsHkQ1jq15n9yftMNAP4YOhWLvSliUAvInWktuFnkd/jwLeA+aEluUz4fWI0yCk7VKDm6MZCziZaQeLli8BBo1lyTt5Jvn3UCQT8DxehZqQcAAAAASUVORK5CYII=">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="shortcut icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
 <title>tvwiki</title>
-<style>html,body{height:100%;margin:0;background:#111;color:#888;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center}</style>
+<style>html,body{height:100%;margin:0;background:#111;color:#aaa;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}img{width:72px;height:72px;border-radius:16px}a{color:#4ea1ff;text-decoration:none;font-size:14px}</style>
 </head>
 <body>
-이동 중…
+<img src="icon.png" alt="">
+<div id="m">잠시 후 이동합니다…</div>
+<a id="go" href="#">바로 이동</a>
 <script>
 fetch('../urls.json?_=' + Date.now(), { cache: 'no-store' })
   .then(function(r){ return r.json(); })
-  .then(function(d){ if (d.tvwiki && d.tvwiki.url) location.replace(d.tvwiki.url); })
-  .catch(function(){});
+  .then(function(d){
+    var u = d.tvwiki && d.tvwiki.url;
+    if (!u) { document.getElementById('m').textContent = '주소 미설정'; return; }
+    document.getElementById('go').setAttribute('href', u);
+    var t = setTimeout(function(){ location.replace(u); }, 1500);
+    document.addEventListener('visibilitychange', function(){ if (document.hidden) clearTimeout(t); });
+  })
+  .catch(function(){ document.getElementById('m').textContent = '불러오기 실패'; });
 </script>
 </body>
 </html>
