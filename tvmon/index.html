@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="referrer" content="no-referrer">
 <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAflBMVEUAAAD/////UgDv7+/i4uKpNAD/VwD19fX6+vq2trY1EAA3EQCaMACeMQCSkpK/OwCLKwCtra1qamrMzMyTLgDsSQDMPwDYQwDZ2dn0SwBDQ0NZHAC0OABQGQCKiooaCABEFQAOBQBzJAB4eHgaGhqBKACCgoInJyegoKBPT08E8M/vAAAApElEQVQ4je1QxxbDIAyTTQjQ7NWm6U73//9gQzNP7S2n6OBnZIGQgQWzYiXX0vsx93mDwA2Aq1ZCKB2a0tKhunX3Xd4CkRujMonSiUkzqhqeRPfAbs/Mdxxye3Asm5Kx5djOT5yfZcEcxZdeAEFARugFvhUUsh4FR3qAEkwt6qlF4++E9BxCDp8cBS+ibIwZNDF9V3770mk5pd+TRXh/FrVgDnwAF/QHJcKh5NQAAAAASUVORK5CYII=">
-<title>티비몬</title>
+<title>tvmon</title>
 <style>html,body{height:100%;margin:0;background:#111;color:#888;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center}</style>
 </head>
 <body>
@@ -12,7 +12,7 @@
 <script>
 fetch('../urls.json?_=' + Date.now(), { cache: 'no-store' })
   .then(function(r){ return r.json(); })
-  .then(function(d){ if (d.티비몬 && d.tvmon.url) location.replace(d.tvmon.url); })
+  .then(function(d){ if (d.tvmon && d.tvmon.url) location.replace(d.tvmon.url); })
   .catch(function(){});
 </script>
 </body>
