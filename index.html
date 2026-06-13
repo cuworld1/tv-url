@@ -1,26 +1,24 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<link rel="icon" href="https://cuworld1.github.io/tv-url/favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="https://cuworld1.github.io/tv-url/icon.png">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231e88e5'/><text x='32' y='45' font-size='32' text-anchor='middle'>📺</text></svg>">
 <title>최신 주소로 이동</title>
 <style>
   :root { color-scheme: dark; }
   body { margin:0; font-family:system-ui,sans-serif; background:#111; color:#eee;
          display:flex; min-height:100vh; align-items:center; justify-content:center; }
-  .wrap { text-align:center; padding:24px; width:100%; max-width:520px; }
-  h1 { font-size:18px; font-weight:600; margin:0 0 18px; color:#aaa; }
-  .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
-  a.site { display:flex; align-items:center; gap:12px; padding:16px; background:#1e1e1e;
-           border:1px solid #333; border-radius:14px; color:#fff; text-decoration:none; }
+  .wrap { text-align:center; padding:20px; width:100%; max-width:760px; }
+  .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+  a.site { display:flex; align-items:center; gap:18px; padding:28px 24px; background:#1e1e1e;
+           border:1px solid #333; border-radius:20px; color:#fff; text-decoration:none; }
   a.site:active { background:#2a2a2a; }
-  a.site img { width:34px; height:34px; border-radius:8px; flex:0 0 auto; background:#fff; object-fit:contain; }
+  a.site img { width:60px; height:60px; border-radius:14px; flex:0 0 auto; background:#fff; object-fit:contain; }
   a.site .t { text-align:left; overflow:hidden; min-width:0; }
-  a.site .t b { font-size:16px; }
-  a.site .t small { display:block; color:#888; font-size:11px; margin-top:2px; word-break:break-all; }
+  a.site .t b { font-size:22px; }
+  a.site .t small { display:block; color:#888; font-size:13px; margin-top:4px; word-break:break-all; }
   .msg { color:#888; font-size:14px; }
 </style>
 </head>
@@ -43,7 +41,7 @@ var ICONS = {
     .then(function(r){ return r.json(); })
     .then(function(data){
       if (key && data[key] && data[key].url) { location.replace(data[key].url); return; }
-      var html = '<h1>최신 주소로 이동</h1><div class="grid">';
+      var html = '<div class="grid">';
       Object.keys(data).forEach(function(k){
         var u = data[k].url || '#';
         var ic = ICONS[k] ? '<img src="' + ICONS[k] + '" alt="">' : '';
