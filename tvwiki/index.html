@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAANlBMVEUPDw////8AAAAMDAyUlJQODg6EhITe3t7i4uLS0tIbGxvy8vJ2dnbX19fKysrr6+tpaWlubm4sQ29IAAAAX0lEQVQokd3QwQ6AIAiAYYKsKMt6/5ctsHkQ1jq15n9yftMNAP4YOhWLvSliUAvInWktuFnkd/jwLeA+aEluUz4fWI0yCk7VKDm6MZCziZaQeLli8BBo1lyTt5Jvn3UCQT8DxehZqQcAAAAASUVORK5CYII=">
+<title>tvwiki</title>
+<style>html,body{height:100%;margin:0;background:#111;color:#888;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center}</style>
+</head>
+<body>
+이동 중…
+<script>
+fetch('../urls.json?_=' + Date.now(), { cache: 'no-store' })
+  .then(function(r){ return r.json(); })
+  .then(function(d){ if (d.tvwiki && d.tvwiki.url) location.replace(d.tvwiki.url); })
+  .catch(function(){});
+</script>
+</body>
+</html>

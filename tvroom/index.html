@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAflBMVEVHcExEWmHYM0k6UVg7TlVDTVRFWWDaMkjNLkPmOVDaM0l+SVSoOefMLkOo09jmOVDG4udGWmHF6e3NJz7NY3HRK0HH5Ok5SlHoK0Wm29+v1ts4XGLVnafOFzPoNEzNxs2iQE+yt76n1dt1SlRgVV64NUfNR1nJiZPReIRHcExR3uC0AAAAKnRSTlMA82Vil9A6NMrMp6r//////////////////////////////////////wCAtkMBAAACDUlEQVRYhcWXC5OCIBSF6eHaY7JATc2wh6b+/1+4XKxEwCSY2T2T1VTn8wjXuCA01M9s9oNULZOl5lOdZhhjleAlSbIwA3hYQwB/ogs2FkEicL/pJSCEZcKXfiXD134pg4V/kMHKL2Sw9L8zWPsZIWcy9fubtaqa6QFajWoz7/zrvU5FUezj3YRW436uKT8TQvNxvwlg/imACWCFPvinxwCuQRq4geJQ0DQgTaMoavsDXnrVVI94A4r0TGRl96xX0NCXSYzTAw7kwHV8Huz5FIjKbh2B1m3Ux0Gv81+efkESIMgasFFIeqhDCVCrfgUQBCxC2BAeUQY0JoCMnZd235E2HADYCJoAIgbofkjO1oDL0S1BGMEvyYXuLAE72h4IucnT+AVgF1J4OAC0pfyXgO4ej60B8RX+r3NsD8j5qpNfY1tAlXcA+0EsQa8ANoCY61/rQAxgUwdX0MN+GkteB/nDGuBcB64JnMfAfRbc68C1Eh8VripcSvdC0RoB4PxYO437VPUrgDusrmMAXQRlceUrqv4SWISGkKOk011QFjznQDuIQNifL5Juohp9lyP2SKksKmqkSZK6tEI4jNo8GTCUEWDzAWDQJ26Q75bA/9gsT/t5w+/zdpm3pmaAvg7895bD972qrMqtb6AtLCweezPYtSygwA13R3wnJG+lF+Z+2Mtr9uKeuR8I3uvtL1uA03WOeKlOAAAAAElFTkSuQmCC">
+<title>tvroom</title>
+<style>html,body{height:100%;margin:0;background:#111;color:#888;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center}</style>
+</head>
+<body>
+이동 중…
+<script>
+fetch('../urls.json?_=' + Date.now(), { cache: 'no-store' })
+  .then(function(r){ return r.json(); })
+  .then(function(d){ if (d.tvroom && d.tvroom.url) location.replace(d.tvroom.url); })
+  .catch(function(){});
+</script>
+</body>
+</html>

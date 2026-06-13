@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADbUlEQVRYhe2XW2gcZRiGn++f2U3W1ByWbKJW6+FCbClBDDVuKJpqRFAaqKVRUfHKGyleergyoOAJ9MIbSy+8SBXZalQQQVQq2KDFFqSlIlg3YBe0BkoMSXazM/O/Xmx62GYLm0QKYt7LmY95n//7/v+dGfi/y5otHJxQj4943BylsMLh737jDGPm1wrgmi4sExncjef1JM3E4Ga29x9Vaq0AYbOF5RQ+LVqBjYIeGddefYIAiNYC0HQH6mSYQcBNa7FeC8C/qHWAdYC6YzjwgXqDFHfJ0w9sAMzgDxnHUwknI9dEcEk2OMGmJCLvjD4gc/4WJMAp8xz5O+Dkz6NWDQGGC+qYEy+aMSzRDUggZ0giQhA7KsANS9BxI+98QVkVeF7G/YHRLagaFD2UzZCJ64Dd5qh2ih+3faRXw+GCOubFa2Y8DKQlXkIcdlC1ABngPW1ePOXgMV0mvocK2lCBV8zYjegEDviQ/UHEtHd4gJSR9p4+GS8DI2FMNiwb9xk8KJEDPg+MTydHOY2Zzj99TC6/hbMSW4F8I4Cy2ObEAxjdiEkLeWtTwi8HH7Xkki79bnCrPM9h7HCJ5x6JLGAYR+MqM3XmAGPmqzANLNRGuVwB3IGRpbaxp6J5/jw4Wm8O8P2olSWKGBHQ6pxoBwKDinlOu/Sqsz3DhVMVBZnGoNRWkNjSQkJc7YoMj7G4SvNVa1kOtOQuT35FAK60/hsAewoK0vAQYjMr+IhpRqEgwWpzdx5bnK4PmnxB2ZLnBYwRjF6scRDJUzRHdaUbyAE/ISqI1sS4M4hoPWec/1B7EZ9gjEiMAydQ4xgOPD8Ap4AYY4sS2pGWw0pmcLuMFsGsDXymXrfIO4idBnOCX4HIoEPQLvjajPerMJUW+4B7AWE8W81w4NhOWwAYOqRw8Qy7MN4AcohDcuwn4biSGrRL02WeRzCeFPQA7xqSbZ/g5jjmGRO7cGSoJdU3Dr4ioViZZfqWLnxJvAk8DbQBRYPxJOLtI0/YLEDfl2q76ixbnWOvYAiRAGUupGeI0S6YMuM9H/CFnWvL4Dg5hWQdBHJU4jQzN8bMXBynAx/reou5zXlaLM2CoLgxoXRxzZ6CghJc4xydFhP6S17hicMHMfOW4a/JEeaa/jFZGqD17yMsd2E9Ofy3O6zhfljXulaifwCrNmNawfYClQAAAABJRU5ErkJggg==">
+<title>dodotv</title>
+<style>html,body{height:100%;margin:0;background:#111;color:#888;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center}</style>
+</head>
+<body>
+이동 중…
+<script>
+fetch('../urls.json?_=' + Date.now(), { cache: 'no-store' })
+  .then(function(r){ return r.json(); })
+  .then(function(d){ if (d.dodotv && d.dodotv.url) location.replace(d.dodotv.url); })
+  .catch(function(){});
+</script>
+</body>
+</html>
