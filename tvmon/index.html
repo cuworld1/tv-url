@@ -12,7 +12,7 @@
 <script>
 fetch('../urls.json?_=' + Date.now(), { cache: 'no-store' })
   .then(function(r){ return r.json(); })
-  .then(function(d){ if (d.tvmon && d.tvmon.url) location.replace(d.tvmon.url); })
+  .then(function(d){ if (d.티비몬 && d.tvmon.url) location.replace(d.tvmon.url); })
   .catch(function(){});
 </script>
 </body>
