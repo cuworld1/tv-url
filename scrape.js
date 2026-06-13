@@ -3,6 +3,8 @@ const path = './urls.json';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
           '(KHTML, like Gecko) Chrome/124.0 Safari/537.36';
 
+"tvwiki": "https://cuworld1.github.io/tv-url/icons/tvwiki.png",
+
 // 전체 URL/@핸들 무엇이 와도 순수 핸들만 추출
 function normChannel(c) {
   return String(c)
