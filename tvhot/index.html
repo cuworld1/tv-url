@@ -2,29 +2,18 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<link rel="icon" type="image/png" href="icon.png">
-<link rel="shortcut icon" type="image/png" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAh1BMVEVHcEy415m61JGDu3WEqVGoyoa80GvM5LXr+OjF3KiWxHq91YS70Hm+0HCKtGi70V6Yxl+Esm5XoE+Twm1tqV5RoDi70TbB0yxZoDijzDyQyD/F1CPK1huszT9+pzKayT5/xkBGnTfQ2Ax0xEG0zzuIxz9nwEJfojV2pTuAwEhpojZkqjhetkmkTDztAAAAFXRSTlMARFaE9WfRHwsxlHeWrtLt7bbyvtjgvA92AAAEjklEQVRYhY2Xh7aiMBCGKaKAYCdSRERBKb7/8+1kUml3HXX3HK//NyWZTDCMJXPNbbhGCyzPXfzZgtgKyTW73TL493rNCKn2gfk7xAvJ7fm83eCdXQmBdwXvPA82P8mtNbhGA+doBKyqKpLnofdfubnOqPMJgBIgiCL8TxQBeVKbBUAWCSC2fyW/57nT+mWjDGgAAEiK9WI1LSK8UzUFEOYdATlYQq04mPP6bSbDz2QARK9AwgnFLGF7ezLAEyOAEAYBaBEURTpDYP559bj/GTXTzxAspdfinwEU8E6BMVpOjzxFAYblV4BERVCkaXoYAva6Xrq/crUCFAXXp/VZ14c3Gb/KnwWOyjxhCyDUFNA6WgIZr/5NSx8a0DK9zcYznXCvhc8IdZ0e3GEC2H0CQKpQPwNc81wUUD+VAAAevr4C3D9o6Q6o1pO2Mw8FK78A1HUrVgI7AAHUOeyffK5h3KBAQCoBLx6CmQ3aj5B8aa+nqSwh2EOEEKoVQMCSHgnSPQAebCFcggCxfiS3lvSG4deM8EBrX7ibnAwKkMkNVAXLesPY1RjBgyHa1sMMaA3lBtzL1ds40xPQa1sWPdrrRXMgev9d1QK4u/vKnxw+fsO9v6i9d7SNRPdjBbUAVvf7feWMAJumbzVAS3cR9u+Vb0BVAQTcV7tRHueufyGgRYJrOIMAKm8EuN8bf9D6TtdhDCyCt2cEKn/Q740JYJTHpmEEDrCgkxkAz798PQe4Nzu1t9xVB4QXt7dtrOUOoodPMA/omqPMY/f5fBjh/WYA7fjSu0gHAGIlqnP8UOtfoAYTAPIHoKGfpvMloEPC+/0boGGf7rIZRCAIY8BMDRr60vbkjgPingGCjBB5fs+tAsibs9oe7gq0aBEQvpbhXHWA2skMwNzrDe51AhCXPd1IFsEbjJgf3gSwsgcd5cQSEEURbGUvl/Ofzt9hLzSNtgF4CeKPUEdR+YVvDpW6QOSJysGjq78bH29er9wD4AhfBQzAh1ChnQfNpJlhESMJKKOypD9w8ooBKpxiat641vRCZcaDAEr8RS7d4/QKJypl7qXU5eUFvw3x9qUuMH9cw45lFAk9BbAUTYyeD2FKWDzX/Qj1EnDi368TjIHdP+j0nNaO6bmSyQFg8z9YScJLQIcfWBvMXAU3R3BNXyL+Mpa/WifqApHSVztZf8NZRfEgAhUAFLdAAMrZDaBudpZ+P3Au2uox/7IC1LbF4P5Dxxc0wdG2PDDL3q301ady+hmc9+uCFTAVF5i6vXdd3EEzwH9xPARgBLauN9xDwTNQ47/p2OEluy9W4Ys9pMxD//r14dH2cIAzwEcHIOI0WSeTeq+lGqd3//loIej+TzPPHZYePh/fvRb/wP/sc4uVDgAvOj97/fgR8gU91OEA8lQGgMOnj/UEmP6y+MjinmFqSv0Dh1c/3j+j9RunAVeYh7zAPOj86oeA0+IdTgbRahnQ+dcjoMQCRH+6Z7Y5ty9pOL6iMube7d8efzf+AZIXcrAPOr8sHBOz5vnnVsi/3298Otq/PTgPII5v2z58nJnjWdo/6H4Ghe6NEjcAAAAASUVORK5CYII=">
 <title>tvhot</title>
-<style>html,body{height:100%;margin:0;background:#111;color:#aaa;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}img{width:72px;height:72px;border-radius:16px}a{color:#4ea1ff;text-decoration:none;font-size:14px}</style>
+<style>html,body{height:100%;margin:0;background:#111;color:#888;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center}</style>
 </head>
 <body>
-<img src="icon.png" alt="">
-<div id="m">잠시 후 이동합니다…</div>
-<a id="go" href="#">바로 이동</a>
+이동 중…
 <script>
 fetch('../urls.json?_=' + Date.now(), { cache: 'no-store' })
   .then(function(r){ return r.json(); })
-  .then(function(d){
-    var u = d.tvhot && d.tvhot.url;
-    if (!u) { document.getElementById('m').textContent = '주소 미설정'; return; }
-    document.getElementById('go').setAttribute('href', u);
-    var t = setTimeout(function(){ location.replace(u); }, 1500);
-    document.addEventListener('visibilitychange', function(){ if (document.hidden) clearTimeout(t); });
-  })
-  .catch(function(){ document.getElementById('m').textContent = '불러오기 실패'; });
+  .then(function(d){ if (d.tvhot && d.tvhot.url) location.replace(d.tvhot.url); })
+  .catch(function(){});
 </script>
 </body>
 </html>
