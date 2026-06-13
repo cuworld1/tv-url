@@ -4,5 +4,5 @@
   "도도티비": { "url": "https://dodotv14.com",  "channel": "",            "updated": "" },
   "무비킹": { "url": "https://mvking.mov",    "channel": "mvking777l",  "updated": "" },
   "티비룸": { "url": "https://tvroom.me",     "channel": "tvroom8282",  "updated": "" },
-  "티비몬":  { "url": "https://tvmon1.com",    "channel": "tvmon_noti",  "updated": "" }
+  "tvmon":  { "url": "https://tvmon1.com",    "channel": "tvmon_noti",  "updated": "" }
 }
