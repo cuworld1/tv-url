@@ -1,6 +1,7 @@
 {
   "tvwiki": { "url": "https://tvwiki27.net", "channel": "tvwiki_url", "updated": "" },
   "tvhot":  { "url": "https://tvhot2.com",   "page": "https://www.jusoland1.com/", "updated": "" },
+  "dodotv": { "url": "https://dodotv15.com", "probe": { "base": "dodotv", "tlds": ["com","net","me","tv","org","co","io","xyz","top","cc"], "from": 1, "to": 30 }, "updated": "" },
   "mvking": { "url": "https://mvking.mov",   "channel": "mvking777l", "updated": "" },
   "tvroom": { "url": "https://tvroom.me",    "channel": "tvroom8282", "updated": "" },
   "tvmon":  { "url": "https://tvmon1.com",   "channel": "tvmon_noti", "updated": "" }
