@@ -1,59 +1,8 @@
 {
-  "tvwiki": {
-    "channel": "tvwiki_url",
-    "candidates": [
-      "https://tvwiki28.net",
-      "https://tvwiki26.net",
-      "https://tvwiki24.net"
-    ],
-    "updated": "2026-06-16T06:24:10.771Z"
-  },
-  "tvhot": {
-    "page": "https://www.jusoland1.com/",
-    "candidates": [
-      "https://tvhot2.com"
-    ],
-    "updated": ""
-  },
-  "mvking": {
-    "channel": "mvking777",
-    "candidates": [
-      "https://mvking.wiki",
-      "https://mvking.mov",
-      "https://mvking.vip"
-    ],
-    "updated": "2026-06-16T06:24:11.099Z"
-  },
-  "tvroom": {
-    "channel": "tvroom8282",
-    "candidates": [
-      "https://tvroom.one",
-      "https://tvroom.me",
-      "https://tvroom.vip"
-    ],
-    "updated": "2026-06-16T06:24:11.413Z"
-  },
-  "tvmon": {
-    "channel": "tvmon_noti",
-    "candidates": [
-      "https://tvmon1.com",
-      "https://tvmon.site"
-    ],
-    "updated": "2026-06-16T06:24:11.684Z"
-  },
-  "dodotv": {
-    "gen": {
-      "base": "dodotv",
-      "tlds": [
-        "com",
-        "net",
-        "tv",
-        "me"
-      ],
-      "from": 1,
-      "to": 30
-    },
-    "candidates": [],
-    "updated": ""
-  }
+  "tvwiki": { "channel": "tvwiki_url", "url": "https://tvwiki28.net", "updated": "" },
+  "tvhot":  { "page": "https://www.jusoland1.com/", "candidates": ["https://tvhot2.com"], "updated": "" },
+  "mvking": { "channel": "mvking777", "url": "https://mvking.wiki", "updated": "" },
+  "tvroom": { "channel": "tvroom8282", "url": "https://tvroom.one", "updated": "" },
+  "tvmon":  { "channel": "tvmon_noti", "url": "https://tvmon1.com", "updated": "" },
+  "dodotv": { "gen": { "base": "dodotv", "tlds": ["com", "net", "tv", "me"], "from": 1, "to": 30 }, "candidates": [], "updated": "" }
 }

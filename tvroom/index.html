@@ -2,31 +2,17 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAflBMVEVHcExEWmHYM0k6UVg7TlVDTVRFWWDaMkjNLkPmOVDaM0l+SVSoOefMLkOo09jmOVDG4udGWmHF6e3NJz7NY3HRK0HH5Ok5SlHoK0Wm29+v1ts4XGLVnafOFzPoNEzNxs2iQE+yt76n1dt1SlRgVV64NUfNR1nJiZPReIRHcExR3uC0AAAAKnRSTlMA82Vil9A6NMrMp6r//////////////////////////////////////wCAtkMBAAACDUlEQVRYhcWXC5OCIBSF6eHaY7JATc2wh6b+/1+4XKxEwCSY2T2T1VTn8wjXuCA01M9s9oNULZOl5lOdZhhjleAlSbIwA3hYQwB/ogs2FkEicL/pJSCEZcKXfiXD134pg4V/kMHKL2Sw9L8zWPsZIWcy9fubtaqa6QFajWoz7/zrvU5FUezj3YRW436uKT8TQvNxvwlg/imACWCFPvinxwCuQRq4geJQ0DQgTaMoavsDXnrVVI94A4r0TGRl96xX0NCXSYzTAw7kwHV8Huz5FIjKbh2B1m3Ux0Gv81+efkESIMgasFFIeqhDCVCrfgUQBCxC2BAeUQY0JoCMnZd235E2HADYCJoAIgbofkjO1oDL0S1BGMEvyYXuLAE72h4IucnT+AVgF1J4OAC0pfyXgO4ej60B8RX+r3NsD8j5qpNfY1tAlXcA+0EsQa8ANoCY61/rQAxgUwdX0MN+GkteB/nDGuBcB64JnMfAfRbc68C1Eh8VripcSvdC0RoB4PxYO437VPUrgDusrmMAXQRlceUrqv4SWISGkKOk011QFjznQDuIQNifL5Juohp9lyP2SKksKmqkSZK6tEI4jNo8GTCUEWDzAWDQJ26Q75bA/9gsT/t5w+/zdpm3pmaAvg7895bD972qrMqtb6AtLCweezPYtSygwA13R3wnJG+lF+Z+2Mtr9uKeuR8I3uvtL1uA03WOeKlOAAAAAElFTkSuQmCC">
 <title>tvroom</title>
-<style>html,body{height:100%;margin:0;background:#111;color:#aaa;font:15px system-ui,sans-serif;display:flex;align-items:center;justify-content:center;text-align:center} a{color:#4ea1ff;display:block;margin:8px 0;text-decoration:none}</style>
+<style>html,body{height:100%;margin:0;background:#111}</style>
 </head>
 <body>
-<div id="m"></div>
 <script>
-(function(){
-  var KEY='tvroom', ck='tvurl_'+KEY;
-  function done(u){ try{localStorage.setItem(ck,u);}catch(e){} location.replace(u); }
-  function probe(u){ return new Promise(function(res){ var img=new Image(); var t=setTimeout(function(){img.onload=img.onerror=null;res(false);},5000); img.onload=function(){clearTimeout(t);res(true);}; img.onerror=function(){clearTimeout(t);res(false);}; img.src=u+'/favicon.ico?x='+Date.now(); }); }
-  function pickInOrder(list,batch){ var i=0; function nb(){ if(i>=list.length) return Promise.resolve(null); var s=list.slice(i,i+batch); i+=batch; return Promise.all(s.map(function(u){return probe(u).then(function(ok){return ok?u:null;});})).then(function(rs){ for(var j=0;j<rs.length;j++){ if(rs[j]) return rs[j]; } return nb(); }); } return nb(); }
-  function build(cfg){ var L=[]; var c=null; try{c=localStorage.getItem(ck);}catch(e){} if(c) L.push(c); (cfg.candidates||[]).forEach(function(u){ if(L.indexOf(u)<0) L.push(u); }); if(cfg.gen){ var g=cfg.gen; for(var n=g.to;n>=g.from;n--){ (g.tlds||['com']).forEach(function(t){ var u2='https://'+g.base+n+'.'+t; if(L.indexOf(u2)<0) L.push(u2); }); } } return L; }
-  fetch('../urls.json?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
-    var cfg=d[KEY]||{}; var L=build(cfg);
-    if(!L.length){ document.getElementById('m').textContent='주소 없음'; return; }
-    pickInOrder(L,12).then(function(u){
-      if(u){ done(u); return; }
-      var m=document.getElementById('m');
-      m.innerHTML='접속 가능한 주소를 못 찾았어요. 직접 시도:<br>'+L.map(function(x){return '<a href="'+x+'">'+x.replace(/^https?:\/\//,'')+'</a>';}).join('');
-    });
-  }).catch(function(){ document.getElementById('m').textContent='불러오기 실패'; });
-})();
+fetch('../urls.json?_='+Date.now(),{cache:'no-store'})
+  .then(function(r){return r.json();})
+  .then(function(d){ if(d.tvroom && d.tvroom.url) location.replace(d.tvroom.url); })
+  .catch(function(){});
 </script>
 </body>
 </html>
