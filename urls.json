@@ -1,8 +1,89 @@
 {
-  "tvwiki": { "channel": "tvwiki_url", "candidates": ["https://tvwiki28.net", "https://tvwiki27.net"], "updated": "" },
-  "tvhot":  { "page": "https://www.jusoland1.com/", "candidates": ["https://tvhot2.com"], "updated": "" },
-  "mvking": { "channel": "mvking777", "candidates": ["https://mvking.mov", "https://mvking.me", "https://mvking.net"], "updated": "" },
-  "tvroom": { "channel": "tvroom8282", "candidates": ["https://tvroom.me", "https://tvroom.sbs"], "updated": "" },
-  "tvmon":  { "channel": "tvmon_noti", "candidates": ["https://tvmon1.com"], "updated": "" },
-  "dodotv": { "gen": { "base": "dodotv", "tlds": ["com", "net", "tv", "me"], "from": 1, "to": 30 }, "candidates": [], "updated": "" }
+  "tvwiki": {
+    "channel": "tvwiki_url",
+    "candidates": [
+      "https://tvwiki28.net",
+      "https://tvwiki26.net",
+      "https://tvwiki24.net",
+      "https://tvwiki23.net"
+    ],
+    "updated": "2026-06-16T06:08:56.019Z"
+  },
+  "tvhot": {
+    "page": "https://www.jusoland1.com/",
+    "candidates": [
+      "https://tvhot2.com"
+    ],
+    "updated": ""
+  },
+  "mvking": {
+    "channel": "mvking777",
+    "candidates": [
+      "https://mvking6.org",
+      "https://mvking4.org",
+      "https://mvking3.org",
+      "https://mvking1.org",
+      "https://mvking.me",
+      "https://mvking.mov",
+      "https://mvking.net",
+      "https://mvking.org",
+      "https://mvking.sbs",
+      "https://mvking.top",
+      "https://mvking.vip",
+      "https://mvking.wiki"
+    ],
+    "updated": "2026-06-16T06:08:56.384Z"
+  },
+  "tvroom": {
+    "channel": "tvroom8282",
+    "candidates": [
+      "https://tvroom12.org",
+      "https://tvroom11.org",
+      "https://tvroom10.org",
+      "https://tvroom9.org",
+      "https://tvroom8.org",
+      "https://tvroom4.org",
+      "https://tvroom.cc",
+      "https://tvroom.me",
+      "https://tvroom.one",
+      "https://tvroom.sbs",
+      "https://tvroom.vip"
+    ],
+    "updated": "2026-06-16T06:08:56.771Z"
+  },
+  "tvmon": {
+    "channel": "tvmon_noti",
+    "candidates": [
+      "https://tvmon16.org",
+      "https://tvmon14.org",
+      "https://tvmon12.org",
+      "https://tvmon11.org",
+      "https://tvmon10.org",
+      "https://tvmon9.org",
+      "https://tvmon8.org",
+      "https://tvmon6.org",
+      "https://tvmon5.org",
+      "https://tvmon3.org",
+      "https://tvmon2.org",
+      "https://tvmon1.com",
+      "https://tvmon.net",
+      "https://tvmon.site"
+    ],
+    "updated": "2026-06-16T06:08:57.062Z"
+  },
+  "dodotv": {
+    "gen": {
+      "base": "dodotv",
+      "tlds": [
+        "com",
+        "net",
+        "tv",
+        "me"
+      ],
+      "from": 1,
+      "to": 30
+    },
+    "candidates": [],
+    "updated": ""
+  }
 }
