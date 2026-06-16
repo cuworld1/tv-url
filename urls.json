@@ -1,8 +1,50 @@
 {
-  "tvwiki": { "channel": "tvwiki_url", "url": "https://tvwiki28.net", "updated": "" },
-  "tvhot":  { "page": "https://www.jusoland1.com/", "candidates": ["https://tvhot2.com"], "updated": "" },
-  "mvking": { "channel": "mvking777", "url": "https://mvking7.org", "updated": "" },
-  "tvroom": { "channel": "tvroom8282", "url": "https://tvroom.one", "updated": "" },
-  "tvmon":  { "channel": "tvmon_noti", "url": "https://tvmon1.com", "updated": "" },
-  "dodotv": { "gen": { "base": "dodotv", "tlds": ["com", "net", "org", "tv", "me", "cc", "co", "sbs", "top", "xyz"], "from": 1, "to": 60 }, "candidates": [], "updated": "" }
+  "tvwiki": {
+    "channel": "tvwiki_url",
+    "url": "https://tvwiki28.net",
+    "updated": ""
+  },
+  "tvhot": {
+    "page": "https://www.jusoland1.com/",
+    "candidates": [
+      "https://tvhot2.com"
+    ],
+    "updated": ""
+  },
+  "mvking": {
+    "channel": "mvking777",
+    "url": "https://mvking.wiki",
+    "updated": "2026-06-16T19:53:31.466Z"
+  },
+  "tvroom": {
+    "channel": "tvroom8282",
+    "url": "https://tvroom.one",
+    "updated": ""
+  },
+  "tvmon": {
+    "channel": "tvmon_noti",
+    "url": "https://tvmon1.com",
+    "updated": ""
+  },
+  "dodotv": {
+    "gen": {
+      "base": "dodotv",
+      "tlds": [
+        "com",
+        "net",
+        "org",
+        "tv",
+        "me",
+        "cc",
+        "co",
+        "sbs",
+        "top",
+        "xyz"
+      ],
+      "from": 1,
+      "to": 60
+    },
+    "candidates": [],
+    "updated": ""
+  }
 }
