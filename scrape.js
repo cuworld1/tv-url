@@ -3,9 +3,9 @@ const path = './urls.json';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
           '(KHTML, like Gecko) Chrome/124.0 Safari/537.36';
 
-// 이 스크래퍼는 "후보 주소 목록"만 수집한다.
-// 실제로 어느 주소가 "연결되는지"는 태블릿(각 폴더의 index.html)이 직접 판단한다.
-// (GitHub 서버에서는 이 사이트들이 차단/간헐이라 서버측 판단이 불가능하기 때문)
+// 이 스크래퍼는 "후보 주소 목록"만 수집한다. (최신 메시지 우선)
+// 실제로 어느 주소가 연결되는지는 태블릿(각 폴더 index.html)이 직접 판단한다.
+const NMSGS = 3;  // 텔레그램에서 최신 메시지 N개만 본다 (옛 주소 churn 제외)
 
 function normChannel(c) {
   return String(c)
@@ -25,16 +25,12 @@ function normHost(m) {
   return 'https://' + m.replace(/^https?:\/\//i, '').replace(/^www\./i, '').toLowerCase();
 }
 
-function numOf(host) {
-  const m = host.match(/[a-z]+(\d+)\./i);
-  return m ? parseInt(m[1], 10) : 0;
-}
-
-// 중복 제거 + 번호 높은 순(최신) 정렬
-function sortCands(arr) {
-  const uniq = Array.from(new Set(arr));
-  uniq.sort(function (a, b) { return (numOf(b) - numOf(a)) || a.localeCompare(b); });
-  return uniq;
+function hostsFromText(text, key, out) {
+  const found = text.match(patternFor(key)) || [];
+  for (const f of found) {
+    const h = normHost(f);
+    if (out.indexOf(h) < 0) out.push(h);
+  }
 }
 
 async function fetchHtml(url) {
@@ -43,14 +39,23 @@ async function fetchHtml(url) {
   return res.text();
 }
 
+// 텔레그램: 최신 메시지 N개에서만, 최신순으로 후보 수집
 async function candsFromTelegram(channel, key) {
   const html = await fetchHtml('https://t.me/s/' + channel);
-  return sortCands((html.match(patternFor(key)) || []).map(normHost));
+  const parts = html.split('tgme_widget_message_text');  // 메시지 텍스트별 분할
+  const msgs = parts.slice(1);                            // 오래된→최신
+  const recent = msgs.slice(-NMSGS).reverse();            // 최신 메시지 먼저
+  const out = [];
+  for (const m of recent) hostsFromText(m, key, out);
+  return out;
 }
 
+// 주소모음 페이지(jusoland 등): 등장 순서대로 후보 수집
 async function candsFromPage(pageUrl, key) {
   const html = await fetchHtml(pageUrl);
-  return sortCands((html.match(patternFor(key)) || []).map(normHost));
+  const out = [];
+  hostsFromText(html, key, out);
+  return out;
 }
 
 (async () => {
@@ -59,22 +64,16 @@ async function candsFromPage(pageUrl, key) {
   for (const [key, cfg] of Object.entries(data)) {
     try {
       let cands = null;
-      if (cfg.channel) {
-        cands = await candsFromTelegram(normChannel(cfg.channel), key);
-      } else if (cfg.page) {
-        cands = await candsFromPage(cfg.page, key);
-      } else if (cfg.gen) {
-        console.log('- ' + key + ': gen 방식(클라이언트 생성), 스킵');
-        continue;
-      } else {
-        console.log('- ' + key + ': 소스 없음, 스킵');
-        continue;
-      }
-      if (!cands || !cands.length) { console.log('- ' + key + ': 후보 못 찾음'); continue; }
+      if (cfg.channel) cands = await candsFromTelegram(normChannel(cfg.channel), key);
+      else if (cfg.page) cands = await candsFromPage(cfg.page, key);
+      else if (cfg.gen) { console.log('- ' + key + ': gen(클라이언트 생성), 스킵'); continue; }
+      else { console.log('- ' + key + ': 소스 없음, 스킵'); continue; }
+
+      if (!cands || !cands.length) { console.log('- ' + key + ': 후보 못 찾음(유지)'); continue; }
       const before = JSON.stringify(cfg.candidates || []);
       const after = JSON.stringify(cands);
       if (before !== after) {
-        console.log('✓ ' + key + ': 후보 ' + cands.length + '개 [' + cands.slice(0, 4).join(', ') + (cands.length > 4 ? ', …' : '') + ']');
+        console.log('✓ ' + key + ': [' + cands.join(', ') + ']');
         cfg.candidates = cands;
         cfg.updated = new Date().toISOString();
         changed = true;
