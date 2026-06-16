@@ -49,13 +49,14 @@ var NAMES = {
   fetch('urls.json?_=' + Date.now(), { cache: 'no-store' })
     .then(function(r){ return r.json(); })
     .then(function(data){
-      if (key && data[key] && data[key].url) { location.replace(data[key].url); return; }
+      if (key && data[key]) { location.replace(key + '/'); return; }
       var html = '<div class="grid">';
       Object.keys(data).forEach(function(k){
-        var u = data[k].url || '#';
+        var cs = data[k].candidates || [];
+        var sub = cs.length ? cs[0].replace(/^https?:\/\//,'') : '';
         var ic = ICONS[k] ? '<img src="' + ICONS[k] + '" alt="">' : '';
-        html += '<a class="site" href="' + u + '">' + ic +
-                '<span class="t"><b>' + (NAMES[k] || k) + '</b><small>' + u.replace(/^https?:\/\//,'') + '</small></span></a>';
+        html += '<a class="site" href="' + k + '/">' + ic +
+                '<span class="t"><b>' + (NAMES[k] || k) + '</b><small>' + sub + '</small></span></a>';
       });
       app.innerHTML = html + '</div>';
     })

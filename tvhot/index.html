@@ -2,17 +2,27 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAh1BMVEVHcEy415m61JGDu3WEqVGoyoa80GvM5LXr+OjF3KiWxHq91YS70Hm+0HCKtGi70V6Yxl+Esm5XoE+Twm1tqV5RoDi70TbB0yxZoDijzDyQyD/F1CPK1huszT9+pzKayT5/xkBGnTfQ2Ax0xEG0zzuIxz9nwEJfojV2pTuAwEhpojZkqjhetkmkTDztAAAAFXRSTlMARFaE9WfRHwsxlHeWrtLt7bbyvtjgvA92AAAEjklEQVRYhY2Xh7aiMBCGKaKAYCdSRERBKb7/8+1kUml3HXX3HK//NyWZTDCMJXPNbbhGCyzPXfzZgtgKyTW73TL493rNCKn2gfk7xAvJ7fm83eCdXQmBdwXvPA82P8mtNbhGA+doBKyqKpLnofdfubnOqPMJgBIgiCL8TxQBeVKbBUAWCSC2fyW/57nT+mWjDGgAAEiK9WI1LSK8UzUFEOYdATlYQq04mPP6bSbDz2QARK9AwgnFLGF7ezLAEyOAEAYBaBEURTpDYP559bj/GTXTzxAspdfinwEU8E6BMVpOjzxFAYblV4BERVCkaXoYAva6Xrq/crUCFAXXp/VZ14c3Gb/KnwWOyjxhCyDUFNA6WgIZr/5NSx8a0DK9zcYznXCvhc8IdZ0e3GEC2H0CQKpQPwNc81wUUD+VAAAevr4C3D9o6Q6o1pO2Mw8FK78A1HUrVgI7AAHUOeyffK5h3KBAQCoBLx6CmQ3aj5B8aa+nqSwh2EOEEKoVQMCSHgnSPQAebCFcggCxfiS3lvSG4deM8EBrX7ibnAwKkMkNVAXLesPY1RjBgyHa1sMMaA3lBtzL1ds40xPQa1sWPdrrRXMgev9d1QK4u/vKnxw+fsO9v6i9d7SNRPdjBbUAVvf7feWMAJumbzVAS3cR9u+Vb0BVAQTcV7tRHueufyGgRYJrOIMAKm8EuN8bf9D6TtdhDCyCt2cEKn/Q740JYJTHpmEEDrCgkxkAz798PQe4Nzu1t9xVB4QXt7dtrOUOoodPMA/omqPMY/f5fBjh/WYA7fjSu0gHAGIlqnP8UOtfoAYTAPIHoKGfpvMloEPC+/0boGGf7rIZRCAIY8BMDRr60vbkjgPingGCjBB5fs+tAsibs9oe7gq0aBEQvpbhXHWA2skMwNzrDe51AhCXPd1IFsEbjJgf3gSwsgcd5cQSEEURbGUvl/Ofzt9hLzSNtgF4CeKPUEdR+YVvDpW6QOSJysGjq78bH29er9wD4AhfBQzAh1ChnQfNpJlhESMJKKOypD9w8ooBKpxiat641vRCZcaDAEr8RS7d4/QKJypl7qXU5eUFvw3x9qUuMH9cw45lFAk9BbAUTYyeD2FKWDzX/Qj1EnDi368TjIHdP+j0nNaO6bmSyQFg8z9YScJLQIcfWBvMXAU3R3BNXyL+Mpa/WifqApHSVztZf8NZRfEgAhUAFLdAAMrZDaBudpZ+P3Au2uox/7IC1LbF4P5Dxxc0wdG2PDDL3q301ady+hmc9+uCFTAVF5i6vXdd3EEzwH9xPARgBLauN9xDwTNQ47/p2OEluy9W4Ys9pMxD//r14dH2cIAzwEcHIOI0WSeTeq+lGqd3//loIej+TzPPHZYePh/fvRb/wP/sc4uVDgAvOj97/fgR8gU91OEA8lQGgMOnj/UEmP6y+MjinmFqSv0Dh1c/3j+j9RunAVeYh7zAPOj86oeA0+IdTgbRahnQ+dcjoMQCRH+6Z7Y5ty9pOL6iMube7d8efzf+AZIXcrAPOr8sHBOz5vnnVsi/3298Otq/PTgPII5v2z58nJnjWdo/6H4Ghe6NEjcAAAAASUVORK5CYII=">
 <title>tvhot</title>
-<style>html,body{height:100%;margin:0;background:#111;color:#888;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center}</style>
+<style>html,body{height:100%;margin:0;background:#111;color:#777;font:14px system-ui,sans-serif;display:flex;align-items:center;justify-content:center}</style>
 </head>
 <body>
+<div id="m">연결 중…</div>
 <script>
-fetch('../urls.json?_=' + Date.now(), { cache: 'no-store' })
-  .then(function(r){ return r.json(); })
-  .then(function(d){ if (d.tvhot && d.tvhot.url) location.replace(d.tvhot.url); })
-  .catch(function(){});
+(function(){
+  var KEY='tvhot', ck='tvurl_'+KEY;
+  function done(u){ try{localStorage.setItem(ck,u);}catch(e){} location.replace(u); }
+  function probe(u){ return new Promise(function(res){ var c=new AbortController(); var t=setTimeout(function(){c.abort();res(false);},4500); fetch(u,{mode:'no-cors',cache:'no-store',signal:c.signal}).then(function(){clearTimeout(t);res(true);}).catch(function(){clearTimeout(t);res(false);}); }); }
+  function pickInOrder(list,batch){ var i=0; function nb(){ if(i>=list.length) return Promise.resolve(null); var s=list.slice(i,i+batch); i+=batch; return Promise.all(s.map(function(u){return probe(u).then(function(ok){return ok?u:null;});})).then(function(rs){ for(var j=0;j<rs.length;j++){ if(rs[j]) return rs[j]; } return nb(); }); } return nb(); }
+  function build(cfg){ var L=[]; var c=null; try{c=localStorage.getItem(ck);}catch(e){} if(c) L.push(c); (cfg.candidates||[]).forEach(function(u){ if(L.indexOf(u)<0) L.push(u); }); if(cfg.gen){ var g=cfg.gen; for(var n=g.to;n>=g.from;n--){ (g.tlds||['com']).forEach(function(t){ var u2='https://'+g.base+n+'.'+t; if(L.indexOf(u2)<0) L.push(u2); }); } } return L; }
+  fetch('../urls.json?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+    var cfg=d[KEY]||{}; var L=build(cfg);
+    if(!L.length){ document.getElementById('m').textContent='주소 없음'; return; }
+    pickInOrder(L,12).then(function(u){ done(u||L[0]); });
+  }).catch(function(){ document.getElementById('m').textContent='실패'; });
+})();
 </script>
 </body>
 </html>
