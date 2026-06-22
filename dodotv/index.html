@@ -18,15 +18,9 @@
   function pickInOrder(list,batch){ var i=0; function nb(){ if(i>=list.length) return Promise.resolve(null); var s=list.slice(i,i+batch); i+=batch; return Promise.all(s.map(function(u){return probe(u).then(function(ok){return ok?u:null;});})).then(function(rs){ for(var j=0;j<rs.length;j++){ if(rs[j]) return rs[j]; } return nb(); }); } return nb(); }
   function build(cfg){
     var L=[]; var c=null; try{c=localStorage.getItem(ck);}catch(e){} if(c) L.push(c);
-    (cfg.candidates||[]).forEach(function(u){ if(L.indexOf(u)<0) L.push(u); });
-    if(cfg.gen){ var g=cfg.gen;
-      var lastN=0; if(c){ var cm=c.match(/(\d+)\./); if(cm) lastN=parseInt(cm[1],10); }
-      var hi=Math.max(g.to||40, lastN+30), lo=g.from||1;
-      (g.tlds||['com']).forEach(function(t){
-        for(var n=hi;n>=lo;n--){ var u='https://'+g.base+n+'.'+t; if(L.indexOf(u)<0) L.push(u); }
-        var u0='https://'+g.base+'.'+t; if(L.indexOf(u0)<0) L.push(u0);
-      });
-    }
+    (cfg.manual||[]).forEach(function(u){ if(L.indexOf(u)<0) L.push(u); });
+    (cfg.auto||[]).forEach(function(u){ if(L.indexOf(u)<0) L.push(u); });
+    if(cfg.gen){ var g=cfg.gen; var lastN=0; if(c){ var cm=c.match(/(\d+)\./); if(cm) lastN=parseInt(cm[1],10); } var hi=Math.max(g.to||40,lastN+30), lo=g.from||1; (g.tlds||['com']).forEach(function(t){ for(var n=hi;n>=lo;n--){ var u='https://'+g.base+n+'.'+t; if(L.indexOf(u)<0) L.push(u); } var u0='https://'+g.base+'.'+t; if(L.indexOf(u0)<0) L.push(u0); }); }
     return L;
   }
   fetch('../urls.json?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
@@ -35,7 +29,7 @@
     pickInOrder(L,14).then(function(u){
       if(u){ done(u); return; }
       var m=document.getElementById('m');
-      m.innerHTML='접속 가능한 주소를 못 찾았어요.<br>'+L.slice(0,12).map(function(x){return '<a href="'+x+'">'+x.replace(/^https?:\/\//,'')+'</a>';}).join('');
+      m.innerHTML='접속 가능한 주소를 못 찾았어요.<br>'+L.slice(0,10).map(function(x){return '<a href="'+x+'">'+x.replace(/^https?:\/\//,'')+'</a>';}).join('');
     });
   }).catch(function(){ document.getElementById('m').textContent='불러오기 실패'; });
 })();

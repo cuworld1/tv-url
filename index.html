@@ -52,7 +52,7 @@ var NAMES = {
       if (key && data[key]) { location.replace(key + '/'); return; }
       var html = '<div class="grid">';
       Object.keys(data).forEach(function(k){
-        var cs = data[k].candidates || [];
+        var cs = (data[k].manual || []).concat(data[k].auto || []);
         var sub = cs.length ? cs[0].replace(/^https?:\/\//,'') : '';
         var ic = ICONS[k] ? '<img src="' + ICONS[k] + '" alt="">' : '';
         html += '<a class="site" href="' + k + '/">' + ic +
