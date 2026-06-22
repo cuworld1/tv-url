@@ -53,7 +53,7 @@ var NAMES = {
       var html = '<div class="grid">';
       Object.keys(data).filter(function(k){ return k.charAt(0) !== '_'; }).forEach(function(k){
         var mn = data[k].manual || [];
-        var sub = mn.length ? mn[0].replace(/^https?:\/\//,'') : '자동 탐지';
+        var sub = mn.length ? mn[0].replace(/^https?:\/\//,'') : '';
         var ic = ICONS[k] ? '<img src="' + ICONS[k] + '" alt="">' : '';
         html += '<a class="site" href="' + k + '/">' + ic +
                 '<span class="t"><b>' + (NAMES[k] || k) + '</b><small>' + sub + '</small></span></a>';
