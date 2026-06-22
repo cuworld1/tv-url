@@ -14,24 +14,30 @@
 (function(){
   var KEY='tvhot', ck='tvurl_'+KEY;
   function done(u){ try{localStorage.setItem(ck,u);}catch(e){} location.replace(u); }
+  function msg(s){ document.getElementById('m').textContent=s; }
   function probe(u){ return new Promise(function(res){ var img=new Image(); var t=setTimeout(function(){img.onload=img.onerror=null;res(false);},5000); img.onload=function(){clearTimeout(t);res(true);}; img.onerror=function(){clearTimeout(t);res(false);}; img.src=u+'/favicon.ico?x='+Date.now(); }); }
   function pickInOrder(list,batch){ var i=0; function nb(){ if(i>=list.length) return Promise.resolve(null); var s=list.slice(i,i+batch); i+=batch; return Promise.all(s.map(function(u){return probe(u).then(function(ok){return ok?u:null;});})).then(function(rs){ for(var j=0;j<rs.length;j++){ if(rs[j]) return rs[j]; } return nb(); }); } return nb(); }
-  function build(cfg){
+  function genList(cfg){
     var L=[]; var c=null; try{c=localStorage.getItem(ck);}catch(e){} if(c) L.push(c);
-    (cfg.manual||[]).forEach(function(u){ if(L.indexOf(u)<0) L.push(u); });
-    (cfg.auto||[]).forEach(function(u){ if(L.indexOf(u)<0) L.push(u); });
-    if(cfg.gen){ var g=cfg.gen; var lastN=0; if(c){ var cm=c.match(/(\d+)\./); if(cm) lastN=parseInt(cm[1],10); } var hi=Math.max(g.to||40,lastN+30), lo=g.from||1; (g.tlds||['com']).forEach(function(t){ for(var n=hi;n>=lo;n--){ var u='https://'+g.base+n+'.'+t; if(L.indexOf(u)<0) L.push(u); } var u0='https://'+g.base+'.'+t; if(L.indexOf(u0)<0) L.push(u0); }); }
+    var g=cfg.gen; var lastN=0; if(c){ var cm=c.match(/(\d+)\./); if(cm) lastN=parseInt(cm[1],10); }
+    var hi=Math.max(g.to||40,lastN+30), lo=g.from||1;
+    (g.tlds||['com']).forEach(function(t){ for(var n=hi;n>=lo;n--){ var u='https://'+g.base+n+'.'+t; if(L.indexOf(u)<0) L.push(u); } var u0='https://'+g.base+'.'+t; if(L.indexOf(u0)<0) L.push(u0); });
     return L;
   }
   fetch('../urls.json?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
-    var cfg=d[KEY]||{}; var L=build(cfg);
-    if(!L.length){ document.getElementById('m').textContent='주소 없음'; return; }
-    pickInOrder(L,14).then(function(u){
-      if(u){ done(u); return; }
-      var m=document.getElementById('m');
-      m.innerHTML='접속 가능한 주소를 못 찾았어요.<br>'+L.slice(0,10).map(function(x){return '<a href="'+x+'">'+x.replace(/^https?:\/\//,'')+'</a>';}).join('');
-    });
-  }).catch(function(){ document.getElementById('m').textContent='불러오기 실패'; });
+    var cfg=d[KEY]||{}; var manual=cfg.manual||[], auto=cfg.auto||[];
+    if(manual.length){ done(manual[0]); return; }       // 수동 주소 = 바로 연결
+    if(auto.length){ done(auto[0]); return; }            // 자동 주소 = 바로 연결
+    if(cfg.gen){                                          // dodotv: 번호+TLD 자동탐지
+      var L=genList(cfg);
+      pickInOrder(L,14).then(function(u){
+        if(u){ done(u); return; }
+        document.getElementById('m').innerHTML='접속 가능한 주소를 못 찾았어요.<br>'+L.slice(0,10).map(function(x){return '<a href="'+x+'">'+x.replace(/^https?:\/\//,'')+'</a>';}).join('');
+      });
+      return;
+    }
+    msg('주소 없음');
+  }).catch(function(){ msg('불러오기 실패'); });
 })();
 </script>
 </body>
