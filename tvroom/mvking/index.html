@@ -4,20 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAANlBMVEUPDw////8AAAAMDAyUlJQODg6EhITe3t7i4uLS0tIbGxvy8vJ2dnbX19fKysrr6+tpaWlubm4sQ29IAAAAX0lEQVQokd3QwQ6AIAiAYYKsKMt6/5ctsHkQ1jq15n9yftMNAP4YOhWLvSliUAvInWktuFnkd/jwLeA+aEluUz4fWI0yCk7VKDm6MZCziZaQeLli8BBo1lyTt5Jvn3UCQT8DxehZqQcAAAAASUVORK5CYII=">
-<title>tvwiki</title>
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsSAAALEgHS3X78AAACiElEQVQ4EaVTzU8TURCf2tJuS7tQtlRb6UKBIkQwkRRSEzkQgyEc6lkOKgcOph78Y+CgjXjDs2i44FXY9AMTlQRUELZapVlouy3d7kKtb0Zr0MSLTvL2zb75eL838xtTvV6H/xELBptMJojeXLCXyobnyog4YhzXYvmCFi6qVSfaeRdXdrfaU1areV5KykmX06rcvzumjY/1ggkR3Jh+bNf1mr8v1D5bLuvR3qDgFbvbBJYIrE1mCIoCrKxsHuzK+Rzvsi29+6DEbTZz9unijEYI8ObBgXOzlcrx9OAlXyDYKUCzwwrDQx1wVDGg089Dt+gR3mxmhcUnaWeoxwMbm/vzDFzmDEKMMNhquRqduT1KwXiGt0vre6iSeAUHNDE0d26NBtAXY9BACQyjFusKuL2Ry+IPb/Y9ZglwuVscdHaknUChqLF/O4jn3V5dP4mhgRJgwSYm+gV0Oi3XrvYB30yvhGa7BS70eGFHPoTJyQHhMK+F0ZesRVVznvXw5Ixv7/C10moEo6OZXbWvlFAF9FVZDOqEABUMRIkMd8GnLwVWg9/RkJF9sA4oDfYQAuzzjqzwvnaRUFxn/X2ZlmGLXAE7AL52B4xHgqAUqrC1nSNuoJkQtLkdqReszz/9aRvq90NOKdOS1nch8TpL555WDp49f3uAMXhACRjD5j4ykuCtf5PP7Fm1b0DIsl/VHGezzP1KwOiZQobFF9YyjSRYQETRENSlVzI8iK9mWlzckpSSCQHVALmN9Az1euDho9Xo8vKGd2rqooA8yBcrwHgCqYR0kMkWci08t/R+W4ljDCanWTg9TJGwGNaNk3vYZ7VUdeKsYJGFNkfSzjXNrSX20s4/h6kB81/271ghG17l+rPTAAAAAElFTkSuQmCC">
+<title>mvking</title>
 <style>html,body{height:100%;margin:0;background:#111;color:#aaa;font:15px system-ui,sans-serif;display:flex;align-items:center;justify-content:center;text-align:center} a{color:#4ea1ff;display:block;margin:8px 0;text-decoration:none}</style>
 </head>
 <body>
 <div id="m"></div>
 <script>
 (function(){
-  var KEY='tvwiki', ck='tvurl_'+KEY;
+  var KEY='mvking', ck='tvurl_'+KEY;
   function done(u){ try{localStorage.setItem(ck,u);}catch(e){} location.replace(u); }
   function msg(s){ document.getElementById('m').innerHTML=s; }
   function probe(u){ return new Promise(function(res){ var fin=false,fails=0; function hit(ok){ if(fin)return; if(ok){fin=true;res(true);} else if(++fails>=2){fin=true;res(false);} } var img=new Image(); var t1=setTimeout(function(){img.onload=img.onerror=null;hit(false);},4000); img.onload=function(){clearTimeout(t1);hit(true);}; img.onerror=function(){clearTimeout(t1);hit(false);}; img.src=u+'/favicon.ico?x='+Date.now(); var ac=new AbortController(); var t2=setTimeout(function(){try{ac.abort();}catch(e){}},4000); fetch(u,{mode:'no-cors',cache:'no-store',signal:ac.signal}).then(function(){clearTimeout(t2);hit(true);}).catch(function(){clearTimeout(t2);hit(false);}); }); }
   function firstHit(list,conc){ return new Promise(function(resolve){ var i=0,active=0,settled=0,fin=false,n=list.length; if(!n){resolve(null);return;} function pump(){ while(!fin && active<conc && i<n){ (function(u){ active++; probe(u).then(function(ok){ active--; settled++; if(fin)return; if(ok){fin=true;resolve(u);} else if(settled>=n){resolve(null);} else pump(); }); })(list[i++]); } } pump(); }); }
-  function genList(d,cfg){ var L=[]; var base=cfg.base, lo=cfg.from||1, to=cfg.to||40, tlds=d._tlds||['com']; var c=null; try{c=localStorage.getItem(ck);}catch(e){} var lastN=0; if(c){ var cm=c.match(/(\d+)\./); if(cm) lastN=parseInt(cm[1],10); } var hi=Math.max(to,lastN+30); tlds.forEach(function(t){ var u0='https://'+base+'.'+t; if(L.indexOf(u0)<0) L.push(u0); for(var n=hi;n>=lo;n--){ var u='https://'+base+n+'.'+t; if(L.indexOf(u)<0) L.push(u); } }); return L; }
+  function genList(d,cfg){
+    var L=[]; var base=cfg.base, lo=cfg.from||1, to=cfg.to||40, tlds=d._tlds||['com'];
+    var c=null; try{c=localStorage.getItem(ck);}catch(e){}
+    var lastN=0; if(c){ var cm=c.match(/(\d+)\./); if(cm) lastN=parseInt(cm[1],10); }
+    var hi=Math.max(to,lastN+30);
+    tlds.forEach(function(t){ var u0='https://'+base+'.'+t; if(L.indexOf(u0)<0) L.push(u0); for(var n=hi;n>=lo;n--){ var u='https://'+base+n+'.'+t; if(L.indexOf(u)<0) L.push(u); } });
+    return L;
+  }
   fetch('../urls.json?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
     var cfg=d[KEY]; if(!cfg){ msg('설정 없음'); return; }
     var manual=cfg.manual||[];

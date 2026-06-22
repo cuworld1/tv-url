@@ -17,7 +17,14 @@
   function msg(s){ document.getElementById('m').innerHTML=s; }
   function probe(u){ return new Promise(function(res){ var fin=false,fails=0; function hit(ok){ if(fin)return; if(ok){fin=true;res(true);} else if(++fails>=2){fin=true;res(false);} } var img=new Image(); var t1=setTimeout(function(){img.onload=img.onerror=null;hit(false);},4000); img.onload=function(){clearTimeout(t1);hit(true);}; img.onerror=function(){clearTimeout(t1);hit(false);}; img.src=u+'/favicon.ico?x='+Date.now(); var ac=new AbortController(); var t2=setTimeout(function(){try{ac.abort();}catch(e){}},4000); fetch(u,{mode:'no-cors',cache:'no-store',signal:ac.signal}).then(function(){clearTimeout(t2);hit(true);}).catch(function(){clearTimeout(t2);hit(false);}); }); }
   function firstHit(list,conc){ return new Promise(function(resolve){ var i=0,active=0,settled=0,fin=false,n=list.length; if(!n){resolve(null);return;} function pump(){ while(!fin && active<conc && i<n){ (function(u){ active++; probe(u).then(function(ok){ active--; settled++; if(fin)return; if(ok){fin=true;resolve(u);} else if(settled>=n){resolve(null);} else pump(); }); })(list[i++]); } } pump(); }); }
-  function genList(d,cfg){ var L=[]; var base=cfg.base, lo=cfg.from||1, to=cfg.to||40, tlds=d._tlds||['com']; var c=null; try{c=localStorage.getItem(ck);}catch(e){} var lastN=0; if(c){ var cm=c.match(/(\d+)\./); if(cm) lastN=parseInt(cm[1],10); } var hi=Math.max(to,lastN+30); tlds.forEach(function(t){ var u0='https://'+base+'.'+t; if(L.indexOf(u0)<0) L.push(u0); for(var n=hi;n>=lo;n--){ var u='https://'+base+n+'.'+t; if(L.indexOf(u)<0) L.push(u); } }); return L; }
+  function genList(d,cfg){
+    var L=[]; var base=cfg.base, lo=cfg.from||1, to=cfg.to||40, tlds=d._tlds||['com'];
+    var c=null; try{c=localStorage.getItem(ck);}catch(e){}
+    var lastN=0; if(c){ var cm=c.match(/(\d+)\./); if(cm) lastN=parseInt(cm[1],10); }
+    var hi=Math.max(to,lastN+30);
+    tlds.forEach(function(t){ var u0='https://'+base+'.'+t; if(L.indexOf(u0)<0) L.push(u0); for(var n=hi;n>=lo;n--){ var u='https://'+base+n+'.'+t; if(L.indexOf(u)<0) L.push(u); } });
+    return L;
+  }
   fetch('../urls.json?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
     var cfg=d[KEY]; if(!cfg){ msg('설정 없음'); return; }
     var manual=cfg.manual||[];

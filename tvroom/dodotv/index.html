@@ -4,20 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAANlBMVEUPDw////8AAAAMDAyUlJQODg6EhITe3t7i4uLS0tIbGxvy8vJ2dnbX19fKysrr6+tpaWlubm4sQ29IAAAAX0lEQVQokd3QwQ6AIAiAYYKsKMt6/5ctsHkQ1jq15n9yftMNAP4YOhWLvSliUAvInWktuFnkd/jwLeA+aEluUz4fWI0yCk7VKDm6MZCziZaQeLli8BBo1lyTt5Jvn3UCQT8DxehZqQcAAAAASUVORK5CYII=">
-<title>tvwiki</title>
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADbUlEQVRYhe2XW2gcZRiGn++f2U3W1ByWbKJW6+FCbClBDDVuKJpqRFAaqKVRUfHKGyleergyoOAJ9MIbSy+8SBXZalQQQVQq2KDFFqSlIlg3YBe0BkoMSXazM/O/Xmx62GYLm0QKYt7LmY95n//7/v+dGfi/y5otHJxQj4943BylsMLh737jDGPm1wrgmi4sExncjef1JM3E4Ga29x9Vaq0AYbOF5RQ+LVqBjYIeGddefYIAiNYC0HQH6mSYQcBNa7FeC8C/qHWAdYC6YzjwgXqDFHfJ0w9sAMzgDxnHUwknI9dEcEk2OMGmJCLvjD4gc/4WJMAp8xz5O+Dkz6NWDQGGC+qYEy+aMSzRDUggZ0giQhA7KsANS9BxI+98QVkVeF7G/YHRLagaFD2UzZCJ64Dd5qh2ih+3faRXw+GCOubFa2Y8DKQlXkIcdlC1ABngPW1ePOXgMV0mvocK2lCBV8zYjegEDviQ/UHEtHd4gJSR9p4+GS8DI2FMNiwb9xk8KJEDPg+MTydHOY2Zzj99TC6/hbMSW4F8I4Cy2ObEAxjdiEkLeWtTwi8HH7Xkki79bnCrPM9h7HCJ5x6JLGAYR+MqM3XmAGPmqzANLNRGuVwB3IGRpbaxp6J5/jw4Wm8O8P2olSWKGBHQ6pxoBwKDinlOu/Sqsz3DhVMVBZnGoNRWkNjSQkJc7YoMj7G4SvNVa1kOtOQuT35FAK60/hsAewoK0vAQYjMr+IhpRqEgwWpzdx5bnK4PmnxB2ZLnBYwRjF6scRDJUzRHdaUbyAE/ISqI1sS4M4hoPWec/1B7EZ9gjEiMAydQ4xgOPD8Ap4AYY4sS2pGWw0pmcLuMFsGsDXymXrfIO4idBnOCX4HIoEPQLvjajPerMJUW+4B7AWE8W81w4NhOWwAYOqRw8Qy7MN4AcohDcuwn4biSGrRL02WeRzCeFPQA7xqSbZ/g5jjmGRO7cGSoJdU3Dr4ioViZZfqWLnxJvAk8DbQBRYPxJOLtI0/YLEDfl2q76ixbnWOvYAiRAGUupGeI0S6YMuM9H/CFnWvL4Dg5hWQdBHJU4jQzN8bMXBynAx/reou5zXlaLM2CoLgxoXRxzZ6CghJc4xydFhP6S17hicMHMfOW4a/JEeaa/jFZGqD17yMsd2E9Ofy3O6zhfljXulaifwCrNmNawfYClQAAAABJRU5ErkJggg==">
+<title>dodotv</title>
 <style>html,body{height:100%;margin:0;background:#111;color:#aaa;font:15px system-ui,sans-serif;display:flex;align-items:center;justify-content:center;text-align:center} a{color:#4ea1ff;display:block;margin:8px 0;text-decoration:none}</style>
 </head>
 <body>
 <div id="m"></div>
 <script>
 (function(){
-  var KEY='tvwiki', ck='tvurl_'+KEY;
+  var KEY='dodotv', ck='tvurl_'+KEY;
   function done(u){ try{localStorage.setItem(ck,u);}catch(e){} location.replace(u); }
   function msg(s){ document.getElementById('m').innerHTML=s; }
   function probe(u){ return new Promise(function(res){ var fin=false,fails=0; function hit(ok){ if(fin)return; if(ok){fin=true;res(true);} else if(++fails>=2){fin=true;res(false);} } var img=new Image(); var t1=setTimeout(function(){img.onload=img.onerror=null;hit(false);},4000); img.onload=function(){clearTimeout(t1);hit(true);}; img.onerror=function(){clearTimeout(t1);hit(false);}; img.src=u+'/favicon.ico?x='+Date.now(); var ac=new AbortController(); var t2=setTimeout(function(){try{ac.abort();}catch(e){}},4000); fetch(u,{mode:'no-cors',cache:'no-store',signal:ac.signal}).then(function(){clearTimeout(t2);hit(true);}).catch(function(){clearTimeout(t2);hit(false);}); }); }
   function firstHit(list,conc){ return new Promise(function(resolve){ var i=0,active=0,settled=0,fin=false,n=list.length; if(!n){resolve(null);return;} function pump(){ while(!fin && active<conc && i<n){ (function(u){ active++; probe(u).then(function(ok){ active--; settled++; if(fin)return; if(ok){fin=true;resolve(u);} else if(settled>=n){resolve(null);} else pump(); }); })(list[i++]); } } pump(); }); }
-  function genList(d,cfg){ var L=[]; var base=cfg.base, lo=cfg.from||1, to=cfg.to||40, tlds=d._tlds||['com']; var c=null; try{c=localStorage.getItem(ck);}catch(e){} var lastN=0; if(c){ var cm=c.match(/(\d+)\./); if(cm) lastN=parseInt(cm[1],10); } var hi=Math.max(to,lastN+30); tlds.forEach(function(t){ var u0='https://'+base+'.'+t; if(L.indexOf(u0)<0) L.push(u0); for(var n=hi;n>=lo;n--){ var u='https://'+base+n+'.'+t; if(L.indexOf(u)<0) L.push(u); } }); return L; }
+  function genList(d,cfg){
+    var L=[]; var base=cfg.base, lo=cfg.from||1, to=cfg.to||40, tlds=d._tlds||['com'];
+    var c=null; try{c=localStorage.getItem(ck);}catch(e){}
+    var lastN=0; if(c){ var cm=c.match(/(\d+)\./); if(cm) lastN=parseInt(cm[1],10); }
+    var hi=Math.max(to,lastN+30);
+    tlds.forEach(function(t){ var u0='https://'+base+'.'+t; if(L.indexOf(u0)<0) L.push(u0); for(var n=hi;n>=lo;n--){ var u='https://'+base+n+'.'+t; if(L.indexOf(u)<0) L.push(u); } });
+    return L;
+  }
   fetch('../urls.json?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
     var cfg=d[KEY]; if(!cfg){ msg('설정 없음'); return; }
     var manual=cfg.manual||[];
