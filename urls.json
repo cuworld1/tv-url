@@ -1,8 +1,63 @@
 {
-  "tvwiki": { "channel": "tvwiki_url", "manual": [], "auto": ["https://tvwiki28.net"] },
-  "tvmon":  { "channel": "tvmon_noti", "manual": [], "auto": ["https://tvmon1.com"] },
-  "mvking": { "channel": "mvking777", "manual": ["https://mvking.mov"], "auto": ["https://mvking.wiki"] },
-  "tvroom": { "channel": "tvroom8282", "manual": ["https://tvroom.me"], "auto": ["https://tvroom.one"] },
-  "tvhot":  { "page": "https://www.jusoland1.com/", "manual": [], "auto": ["https://tvhot2.com"] },
-  "dodotv": { "gen": { "base": "dodotv", "tlds": ["com", "net", "org", "tv", "me", "cc", "co", "sbs", "top", "xyz"], "from": 1, "to": 60 }, "manual": [], "auto": [] }
+  "tvwiki": {
+    "channel": "tvwiki_url",
+    "manual": [],
+    "auto": [
+      "https://tvwiki30.net"
+    ],
+    "updated": "2026-06-22T09:47:02.009Z"
+  },
+  "tvmon": {
+    "channel": "tvmon_noti",
+    "manual": [],
+    "auto": [
+      "https://tvmon1.com"
+    ]
+  },
+  "mvking": {
+    "channel": "mvking777",
+    "manual": [
+      "https://mvking.mov"
+    ],
+    "auto": [
+      "https://mvking.wiki"
+    ]
+  },
+  "tvroom": {
+    "channel": "tvroom8282",
+    "manual": [
+      "https://tvroom.me"
+    ],
+    "auto": [
+      "https://tvroom.one"
+    ]
+  },
+  "tvhot": {
+    "page": "https://www.jusoland1.com/",
+    "manual": [],
+    "auto": [
+      "https://tvhot2.com"
+    ]
+  },
+  "dodotv": {
+    "gen": {
+      "base": "dodotv",
+      "tlds": [
+        "com",
+        "net",
+        "org",
+        "tv",
+        "me",
+        "cc",
+        "co",
+        "sbs",
+        "top",
+        "xyz"
+      ],
+      "from": 1,
+      "to": 60
+    },
+    "manual": [],
+    "auto": []
+  }
 }
