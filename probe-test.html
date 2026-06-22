@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>주소 감지 테스트</title>
+<style>
+  body{font:14px system-ui,sans-serif;background:#111;color:#ddd;padding:12px;margin:0}
+  h3{margin:0 0 6px} p{color:#999;margin:0 0 12px;font-size:12px}
+  table{border-collapse:collapse;width:100%}
+  td,th{border:1px solid #333;padding:7px 8px;text-align:left;font-size:13px}
+  th{background:#1b1b1b}
+  .ok{color:#4caf50;font-weight:bold} .no{color:#f44} .wait{color:#777}
+</style>
+</head>
+<body>
+<h3>주소 감지 테스트</h3>
+<p>favicon = dodotv가 쓰는 방식 / fetch = 다른 방식. 각 주소가 이 기기에서 감지되는지 봅니다.<br>(OK=감지됨/연결가능, X=감지안됨)</p>
+<table id="t"><tr><th>주소</th><th>favicon<br>(dodotv 방식)</th><th>fetch</th></tr></table>
+<script>
+var ADDRS = [
+  "https://tvwiki28.net",
+  "https://tvmon1.com",
+  "https://mvking.mov", "https://mvking.wiki", "https://mvking.me", "https://mvking.net", "https://mvking.vip",
+  "https://tvroom.me", "https://tvroom.one", "https://tvroom.sbs", "https://tvroom.cc",
+  "https://tvhot2.com", "https://tvhot1.com",
+  "https://dodotv15.com"
+];
+function favProbe(u){ return new Promise(function(res){ var img=new Image(); var t=setTimeout(function(){res(false);},7000); img.onload=function(){clearTimeout(t);res(true);}; img.onerror=function(){clearTimeout(t);res(false);}; img.src=u+'/favicon.ico?x='+Date.now(); }); }
+function fetchProbe(u){ return new Promise(function(res){ var c=new AbortController(); var t=setTimeout(function(){c.abort();res(false);},7000); fetch(u,{mode:'no-cors',cache:'no-store',signal:c.signal}).then(function(){clearTimeout(t);res(true);}).catch(function(){clearTimeout(t);res(false);}); }); }
+var tb=document.getElementById('t');
+ADDRS.forEach(function(u){
+  var tr=document.createElement('tr');
+  tr.innerHTML='<td>'+u.replace(/^https:\/\//,'')+'</td><td class="wait">…</td><td class="wait">…</td>';
+  tb.appendChild(tr);
+  favProbe(u).then(function(ok){ tr.children[1].className=ok?'ok':'no'; tr.children[1].textContent=ok?'OK':'X'; });
+  fetchProbe(u).then(function(ok){ tr.children[2].className=ok?'ok':'no'; tr.children[2].textContent=ok?'OK':'X'; });
+});
+</script>
+</body>
+</html>
