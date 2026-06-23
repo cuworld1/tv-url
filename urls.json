@@ -1,6 +1,6 @@
 {
   "_tlds": ["com", "net", "org", "me", "sbs", "vip", "one", "cc", "top", "mov", "wiki", "tv", "site", "co", "xyz"],
-  "tvwiki": { "base": "tvwiki", "from": 1, "to": 40, "manual": ["https://tvwiki32.net"] },
+  "tvwiki": { "base": "tvwiki", "from": 1, "to": 40, "manual": [] },
   "tvmon":  { "base": "tvmon", "from": 1, "to": 40, "manual": [] },
   "mvking": { "base": "mvking", "from": 1, "to": 40, "manual": [] },
   "tvroom": { "base": "tvroom", "from": 1, "to": 40, "manual": [] },
