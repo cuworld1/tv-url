@@ -4,6 +4,6 @@
   "tvmon":  { "base": "tvmon", "from": 1, "to": 40, "manual": [] },
   "mvking": { "base": "mvking", "from": 1, "to": 40, "manual": [] },
   "tvroom": { "base": "tvroom", "from": 1, "to": 40, "manual": [] },
-  "tvhot":  { "base": "tvhot", "from": 1, "to": 40, "manual": [] },
+  "tvhot":  { "base": "tvhot", "from": 1, "to": 40, "manual": ["https://tvhot3.com"] },
   "dodotv": { "base": "dodotv", "from": 1, "to": 60, "manual": [] }
 }
