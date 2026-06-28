@@ -1,8 +1,89 @@
 {
-  "tvwiki": { "name": "tvwiki", "channel": "tvwiki_url", "manual": [], "auto": ["https://tvwiki34.net", "https://tvwiki32.net"] },
-  "tvmon":  { "name": "tvmon", "channel": "tvmon_noti", "manual": [], "auto": ["https://tvmon1.com"] },
-  "mvking": { "name": "mvking", "channel": "mvking777", "manual": [], "auto": ["https://mvking8.org", "https://mvking.mov", "https://mvking.me", "https://mvking.net", "https://mvking1.org", "https://mvking3.org", "https://mvking4.org"] },
-  "tvroom": { "name": "tvroom", "channel": "tvroom8282", "manual": [], "auto": ["https://tvroom16.org", "https://tvroom.sbs", "https://tvroom.me", "https://tvroom.cc", "https://tvroom.one", "https://tvroom15.org", "https://tvroom12.org"] },
-  "tvhot":  { "name": "tvhot", "page": "https://www.jusoland1.com/", "manual": [], "auto": ["https://tvhot2.com"] },
-  "dodotv": { "name": "dodotv", "gen": { "base": "dodotv", "tlds": ["com", "net", "tv", "me", "org", "cc", "co", "sbs", "top", "xyz"], "from": 1, "to": 60 }, "manual": [] }
+  "tvwiki": {
+    "name": "tvwiki",
+    "channel": "tvwiki_url",
+    "manual": [],
+    "auto": [
+      "https://tvwiki34.net",
+      "https://tvwiki32.net",
+      "https://tvwiki29.net",
+      "https://tvwiki26.net",
+      "https://tvwiki24.net",
+      "https://tvwiki23.net"
+    ]
+  },
+  "tvmon": {
+    "name": "tvmon",
+    "channel": "tvmon_noti",
+    "manual": [],
+    "auto": [
+      "https://tvmon1.com"
+    ]
+  },
+  "mvking": {
+    "name": "mvking",
+    "channel": "mvking777",
+    "manual": [],
+    "auto": [
+      "https://mvking8.org",
+      "https://mvking.wiki",
+      "https://mvking.mov",
+      "https://mvking.vip",
+      "https://mvking.me",
+      "https://mvking.top",
+      "https://mvking6.org",
+      "https://mvking.net",
+      "https://mvking4.org",
+      "https://mvking1.org",
+      "https://mvking3.org"
+    ]
+  },
+  "tvroom": {
+    "name": "tvroom",
+    "channel": "tvroom8282",
+    "manual": [],
+    "auto": [
+      "https://tvroom16.org",
+      "https://tvroom15.org",
+      "https://tvroom.one",
+      "https://tvroom.me",
+      "https://tvroom.vip",
+      "https://tvroom12.org",
+      "https://tvroom.cc",
+      "https://tvroom11.org",
+      "https://tvroom10.org",
+      "https://tvroom9.org",
+      "https://tvroom8.org",
+      "https://tvroom.sbs"
+    ]
+  },
+  "tvhot": {
+    "name": "tvhot",
+    "page": "https://www.jusoland1.com/",
+    "manual": [],
+    "auto": [
+      "https://tvhot2.com"
+    ]
+  },
+  "dodotv": {
+    "name": "dodotv",
+    "gen": {
+      "base": "dodotv",
+      "tlds": [
+        "com",
+        "net",
+        "tv",
+        "me",
+        "org",
+        "cc",
+        "co",
+        "sbs",
+        "top",
+        "xyz"
+      ],
+      "from": 1,
+      "to": 60
+    },
+    "manual": []
+  }
 }
