@@ -9,30 +9,34 @@
 <style>html,body{height:100%;margin:0;background:#111;color:#aaa;font:15px system-ui,sans-serif;display:flex;align-items:center;justify-content:center;text-align:center} a{color:#4ea1ff;display:block;margin:8px 0;text-decoration:none}</style>
 </head>
 <body>
-<div id="m"></div>
+<div id="m">연결 중…</div>
 <script>
 (function(){
-  var KEY='dodotv', ck='tvurl_'+KEY;
-  function done(u){ try{localStorage.setItem(ck,u);}catch(e){} location.replace(u); }
+  var KEY='dodotv', bk='tvb_'+KEY, ck='tvu3_'+KEY;
+  function go(u){ try{localStorage.setItem(ck,u);}catch(e){} location.replace(u); }
+  function goNC(u){ location.replace(u); }
   function msg(s){ document.getElementById('m').innerHTML=s; }
+  function numVars(addr){ var m=addr.match(/^https?:\/\/([a-z]+?)(\d+)\.([a-z]{2,8})$/i); if(!m) return []; var nm=m[1],num=parseInt(m[2],10),tld=m[3],out=[]; for(var dd=1;dd<=12;dd++){ out.push('https://'+nm+(num+dd)+'.'+tld); if(num-dd>0) out.push('https://'+nm+(num-dd)+'.'+tld); } return out; }
   function probe(u){ return new Promise(function(res){ var fin=false,fails=0; function hit(ok){ if(fin)return; if(ok){fin=true;res(true);} else if(++fails>=2){fin=true;res(false);} } var img=new Image(); var t1=setTimeout(function(){img.onload=img.onerror=null;hit(false);},4000); img.onload=function(){clearTimeout(t1);hit(true);}; img.onerror=function(){clearTimeout(t1);hit(false);}; img.src=u+'/favicon.ico?x='+Date.now(); var ac=new AbortController(); var t2=setTimeout(function(){try{ac.abort();}catch(e){}},4000); fetch(u,{mode:'no-cors',cache:'no-store',signal:ac.signal}).then(function(){clearTimeout(t2);hit(true);}).catch(function(){clearTimeout(t2);hit(false);}); }); }
-  function firstHit(list,conc){ return new Promise(function(resolve){ var i=0,active=0,settled=0,fin=false,n=list.length; if(!n){resolve(null);return;} function pump(){ while(!fin && active<conc && i<n){ (function(u){ active++; probe(u).then(function(ok){ active--; settled++; if(fin)return; if(ok){fin=true;resolve(u);} else if(settled>=n){resolve(null);} else pump(); }); })(list[i++]); } } pump(); }); }
-  function genList(d,cfg){ var L=[]; var base=cfg.base, lo=cfg.from||1, to=cfg.to||40, tlds=d._tlds||['com']; var c=null; try{c=localStorage.getItem(ck);}catch(e){} var lastN=0; if(c){ var cm=c.match(/(\d+)\./); if(cm) lastN=parseInt(cm[1],10); } var hi=Math.max(to,lastN+30); tlds.forEach(function(t){ var u0='https://'+base+'.'+t; if(L.indexOf(u0)<0) L.push(u0); for(var n=hi;n>=lo;n--){ var u='https://'+base+n+'.'+t; if(L.indexOf(u)<0) L.push(u); } }); return L; }
+  function pickInOrder(list,batch){ var i=0; function nb(){ if(i>=list.length) return Promise.resolve(null); var s=list.slice(i,i+batch); i+=batch; return Promise.all(s.map(function(u){return probe(u).then(function(ok){return ok?u:null;});})).then(function(rs){ for(var j=0;j<rs.length;j++){ if(rs[j]) return rs[j]; } return nb(); }); } return nb(); }
+  function genList(g){ var L=[]; var base=g.base, lo=g.from||1, to=g.to||40, tlds=g.tlds||['com']; var c=null; try{c=localStorage.getItem(ck);}catch(e){} if(c) L.push(c); var lastN=0; if(c){ var cm=c.match(/(\d+)\./); if(cm) lastN=parseInt(cm[1],10); } var hi=Math.max(to,lastN+30); tlds.forEach(function(t){ var u0='https://'+base+'.'+t; if(L.indexOf(u0)<0) L.push(u0); for(var n=hi;n>=lo;n--){ var u='https://'+base+n+'.'+t; if(L.indexOf(u)<0) L.push(u); } }); return L; }
   fetch('../urls.json?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
-    var cfg=d[KEY]; if(!cfg){ msg('설정 없음'); return; }
-    var manual=cfg.manual||[];
-    if(manual.length){ done(manual[0]); return; }
-    var c=null; try{c=localStorage.getItem(ck);}catch(e){}
-    var fast = c ? probe(c).then(function(ok){return ok?c:null;}) : Promise.resolve(null);
-    fast.then(function(cu){
-      if(cu){ done(cu); return; }
-      var L=genList(d,cfg);
-      firstHit(L,16).then(function(u){
-        if(u){ done(u); return; }
-        msg('접속 가능한 주소를 못 찾았어요.<br>'+L.slice(0,10).map(function(x){return '<a href="'+x+'">'+x.replace(/^https?:\/\//,'')+'</a>';}).join(''));
-      });
-    });
-  }).catch(function(){ msg('불러오기 실패'); });
+    var cfg=d[KEY]||{}; var manual=cfg.manual||[], auto=cfg.auto||[];
+    if(manual.length){ goNC(manual[0]); return; }                      // 수동 고정 우선
+    if(auto.length){                                                   // 텔레그램 공식주소 → 직행 + 바운스
+      var cand=auto.slice();
+      auto.forEach(function(a){ numVars(a).forEach(function(v){ if(cand.indexOf(v)<0) cand.push(v); }); });
+      var idx=0; try{ var b=JSON.parse(localStorage.getItem(bk)||'null'); if(b && (Date.now()-b.t)<15000){ idx=(b.i+1)%cand.length; } }catch(e){}
+      try{ localStorage.setItem(bk, JSON.stringify({i:idx,t:Date.now()})); }catch(e){}
+      goNC(cand[idx]); return;
+    }
+    if(cfg.gen){                                                       // dodotv = gen + probe(고유이름이라 안전)
+      var L=genList(cfg.gen);
+      pickInOrder(L,16).then(function(u){ if(u){ go(u); return; } msg('접속 가능한 주소를 못 찾았어요.<br>'+L.slice(0,8).map(function(x){return '<a href="'+x+'">'+x.replace(/^https?:\/\//,'')+'</a>';}).join('')); });
+      return;
+    }
+    msg('주소 없음');
+  }).catch(function(){ msg('주소 정보를 불러오지 못했습니다.'); });
 })();
 </script>
 </body>
