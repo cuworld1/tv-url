@@ -40,14 +40,13 @@ async function fromTelegram(channel, name) {
   if (!html) return [];
   const blocks = html.split('tgme_widget_message_wrap').slice(1);
   if (!blocks.length) return [];
-  // 최근 메시지들에서 공식 주소를 "전부" 누적 (최신 우선, 중복 제거)
-  const recent = blocks.slice(-15).reverse();
-  const out = [];
+  // 최신 메시지 하나의 주소만 반환 (옛 주소 누적 안 함 → 현재 주소만 깔끔)
+  const recent = blocks.slice(-5).reverse();
   for (const b of recent) {
-    extractAll(b, name).forEach((u) => { if (out.indexOf(u) < 0) out.push(u); });
-    if (out.length >= 12) break;
+    const found = extractAll(b, name);
+    if (found.length) return found;
   }
-  return out;
+  return [];
 }
 
 async function fromPage(pageUrl, name) {
@@ -68,10 +67,8 @@ async function fromPage(pageUrl, name) {
     else if (site.page) auto = await fromPage(site.page, name);
     else { console.log(key + ' -> (gen 사이트, 건너뜀)'); continue; }
     if (auto.length) {
-      const merged = auto.slice();
-      (site.auto || []).forEach((u) => { if (merged.indexOf(u) < 0) merged.push(u); });
-      site.auto = merged.slice(0, 15);
-      console.log(key + ' -> ' + site.auto.join(', '));
+      site.auto = auto;   // 최신 주소로 덮어쓰기 (옛 주소 누적 안 함 → 목록 깔끔)
+      console.log(key + ' -> ' + auto.join(', '));
     } else {
       console.log(key + ' -> (수집 실패, 기존 auto 유지)');
     }
