@@ -4,14 +4,7 @@
     "channel": "tvwiki_url",
     "manual": [],
     "auto": [
-      "https://tvwiki.store",
-      "https://tvwiki35.net",
-      "https://tvwiki32.net",
-      "https://tvwiki29.net",
-      "https://tvwiki26.net",
-      "https://tvwiki24.net",
-      "https://tvwiki23.net",
-      "https://tvwiki34.net"
+      "https://tvwiki.store"
     ]
   },
   "tvmon": {
@@ -27,20 +20,7 @@
     "channel": "mvking777",
     "manual": [],
     "auto": [
-      "https://mvking11.org",
-      "https://mvking10.org",
-      "https://mvking9.org",
-      "https://mvking8.org",
-      "https://mvking.wiki",
-      "https://mvking.mov",
-      "https://mvking.vip",
-      "https://mvking.me",
-      "https://mvking.top",
-      "https://mvking6.org",
-      "https://mvking.net",
-      "https://mvking4.org",
-      "https://mvking1.org",
-      "https://mvking3.org"
+      "https://mvking11.org"
     ]
   },
   "tvroom": {
@@ -48,21 +28,7 @@
     "channel": "tvroom8282",
     "manual": [],
     "auto": [
-      "https://tvroom19.org",
-      "https://tvroom18.org",
-      "https://tvroom17.org",
-      "https://tvroom16.org",
-      "https://tvroom15.org",
-      "https://tvroom.one",
-      "https://tvroom.me",
-      "https://tvroom.vip",
-      "https://tvroom12.org",
-      "https://tvroom.cc",
-      "https://tvroom11.org",
-      "https://tvroom10.org",
-      "https://tvroom9.org",
-      "https://tvroom8.org",
-      "https://tvroom.sbs"
+      "https://tvroom19.org"
     ]
   },
   "tvhot": {
