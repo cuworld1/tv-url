@@ -10,7 +10,6 @@
 [urls.json 구조]
 
   "tvwiki": { "name":"tvwiki", "channel":"tvwiki_url", "manual":[], "auto":[...] }
-  "tvhot":  { "name":"tvhot",  "page":"https://...",   "manual":[], "auto":[...] }
 
 - name    : 사이트 고정 이름 (주소 패턴 name+숫자+TLD 매칭에 사용)
 - channel : 텔레그램 채널 아이디 (t.me/<여기>) — 스크래퍼가 여기서 주소 수집
