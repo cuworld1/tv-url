@@ -32,8 +32,8 @@
       "https://tvroom34.org"
     ]
   },
-  "tvhot": {
-    "name": "tvhot",
+  "tvchak": {
+    "name": "tvchak",
     "page": "https://tvchak.org/",
     "manual": [],
     "auto": [
