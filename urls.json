@@ -32,12 +32,13 @@
       "https://tvroom34.org"
     ]
   },
-  "vitv": {
-    "name": "vitv",
-    "page": "https://www.jusoland1.com/List/%EC%98%81%ED%99%94%2F%EB%93%9C%EB%9D%BC%EB%A7%88",
+  "mimitv": {
+    "name": "mimitv",
+    "channel": "mimitv_ch",
     "manual": [],
     "auto": [
-      "https://vitv88.com"
+      "https://mimitv5.com",
+      "https://mimitv6.com"
     ]
   },
   "dodotv": {
