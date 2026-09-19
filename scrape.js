@@ -52,7 +52,10 @@ async function fromTelegram(channel, name) {
 async function fromPage(pageUrl, name) {
   const html = await get(pageUrl);
   if (!html) return [];
-  return extractAll(html, name);
+  // ★안내페이지 자기 자신(예: jusoland1.com)은 '접속 주소'가 아니므로 후보에서 제외.
+  //   (안내페이지가 봇차단으로 챌린지 HTML만 줄 때 자기 도메인만 걸려 auto 가 오염되는 것 방지)
+  const self = normHost(pageUrl);
+  return extractAll(html, name).filter(function (u) { return u !== self; });
 }
 
 (async () => {

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAASFBMVEUjHyAcGxxhLycPDxEAAAD7UjAoIyQXICUPHSOVOyrpTC51MyjORywQEBCjPSq0QisaGRkTExMWFRZRKyYdHR4kHh4ODQ0jHh6WUKX6AAAAGHRSTlPUsvpAAP/8/vz+//v+OP/+jlRt+8XDKLgWn/QsAAADkUlEQVR42u2b7XajIBCGoU34UFRAJPd/pzuYnEbFJMwKzW7L+6c5tCNPR+MMw0BObxapABWgAvyzAJawlQg16VeNjDUawGgihODiKvjJnfap83d6YRs+8sf0DwAM21OiD+yeLUEBaMI4a+VC7Qgjk0+ef2vMmPUIgPkSQ3P+UqPkyDmjKQRgO0p1XkhJoKcaAwD//+oSgCDh3xAJN8GDsdwYq5Ez5jAAgvXnjVTLuLBpAMN5S88YJwcB4CKcWJ/wCHCmtsZDC5fMAMD0XwKobABdBfjtAK8jktdFAZw2pnsqS8G4DEAPAIyQy1NRCMR8LOUBiKspEsVuQQjyCfOXAlCyTZQsAnBIFaACVIAKUAEqQB6AJlnnMuG4l32SZN+USclGlqixZEb0SgUzIgCABforgQNEwbT8ol8J0mIxFlwZvVgVdJ2hRT2gU1ZG4t1rQ1FXxxWgAvzkCsn0qkJiyldIyPREdPrhFZK0+QtWSGRCkQT+RjY1La8AFaACVIAMADLn/E3YNyS4rdv4fb7ch4Qd6QED0EKQFjiAsW+eOJTHm8vPNIBLCWbv2IVFftur/fqH6sMimT36dfTnQzvvvGN2zw1kluAEuace4u1chviYPyfoY17Xa4vpoPCO5RRnglocALRQiGwCb0I+3SEAvGXZZTA9JI7AMyiHXIKHhjPbHWvhOPYeGvE9JHnfhNCAwifUq5gPWWPB8N8Fo7gR5iCAfDdA+B682QMV4LcD4N8DmV9EIz4nzOwANMCqn/FwKAgdQBQBMAm2k5BtkcI2FkhFsW9rOPeDUkxGZHTIo7alp22EDo82tNVsb5YaIWNd24aEBJ0T3gpOi92gHYAwvgewsg0EBJkTnsxc8Vtrt82URY8rrBrihIxaY5Ct3Z3V1N1E6fSoz5XvAcAd/7IFY9jLssbje8u9uQnotUABEG2tuQtquP5gc7txKIDJdj5vd71HAHyAB4w/vRVgejcAMacK8A0AqnoAzhxAyPgmABpShDjNiAHCSrQAwInGzlah9BIBzEHa5QeA7UC+vgfXno7taEj/4DRFfgBDOIejI/fKWPgOXONuO6hlSYzNBZn8J63o3KCz1L1tZzUagrEtAGBc8Pe68gQbmdfcbZX9hA70rsBZM+82eSJ4WlvtOI9Hk2MR6rDbp9WXiSxE9Zyu6MtlOeow8yNP2/kO5rvL3DwdUqfVqK/nDStABagAFSBdfwADf1pROUB7uAAAAABJRU5ErkJggg==">
+<title>vitv</title>
+<style>html,body{height:100%;margin:0;background:#111;color:#aaa;font:15px system-ui,sans-serif;display:flex;align-items:center;justify-content:center;text-align:center} a{color:#4ea1ff;display:block;margin:8px 0;text-decoration:none}</style>
+</head>
+<body>
+<div id="m"></div>
+<script>
+(function(){
+  var KEY='vitv';
+  function go(u){ location.replace(u); }
+  function msg(s){ document.getElementById('m').innerHTML=s; }
+  fetch('../urls.json?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+    var cfg=d[KEY]||{}; var manual=cfg.manual||[], auto=cfg.auto||[];
+    if(manual.length){ go(manual[0]); return; }   // 수동 지정 우선
+    if(auto.length){ go(auto[0]); return; }        // 항상 최신 공식주소(auto[0])로만 — 사이클링/numVars 제거
+    msg('주소 없음 (Actions 실행 필요)');
+  }).catch(function(){ msg('주소 정보를 불러오지 못했습니다.'); });
+})();
+</script>
+</body>
+</html>
