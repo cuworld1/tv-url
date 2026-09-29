@@ -41,6 +41,14 @@
       "https://mimitv6.com"
     ]
   },
+  "tvhot": {
+    "name": "tvhot",
+    "channel": "tvhot_url",
+    "manual": [],
+    "auto": [
+      "https://tvhot2.com"
+    ]
+  },
   "dodotv": {
     "name": "dodotv",
     "gen": {
